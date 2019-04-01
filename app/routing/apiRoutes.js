@@ -1,30 +1,33 @@
 
-var user = require('../data/friends.js')
+var friendsData = require('../data/friends.js')
 
 
-function apiRoutes(app) {
+module.exports = (app) => {
 
-  //GET route with the url/api/friends
+  //GET 
   app.get("/api/friends", (req, res) => {
-    return res.json(friendsData)
+    res.json(friendsData)
   });
 
-  // POST routes /api/friends
+  // POST 
   app.post("/api/friends", (req, res) => {
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
+    console.log("posted");
+   
     var newFriend = {
       name: req.body.name,
       photo: req.body.photo,
       scores: []
     };
 
+    //create a new array for the user, pushing it onto the main array that is displayed
     var scoresArray = [];
     for (var i = 0; i < req.body.scores.length; i++) {
       scoresArray.push(parseInt(req.body.scores[i]))
     }
     newFriend.scores = scoresArray;
 
+    //used an array to compare score differences. 
+    //pushing currentComparison to scoreComparison
     var scoreComparisionArray = [];
     for (var i = 0; i < friendsData.length; i++) {
 
@@ -36,19 +39,19 @@ function apiRoutes(app) {
       scoreComparisionArray.push(currentComparison);
     };
 
-    var bestMatchPosition = 0;
+    //displaying best match for modal using scoreComparison
+    var bestMatch = 0;
     for (var i = 1; i < scoreComparisionArray.length; i++) {
-      if (scoreComparisionArray[i] <= scoreComparisionArray[bestMatchPosition]) {
-        bestMatchPosition = i;
+      if (scoreComparisionArray[i] <= scoreComparisionArray[bestMatch]) {
+        bestMatch = i;
       }
 
-      var bestFriendMatch = friendsData[bestMatchPosition];
-      res.json(bestFriendMatch);
+      var bestMatch = friendsData[bestMatch];
+      res.json(bestMatch);
 
       friendsData.push(newFriend);
     }
   });
 }
 
-module.exports = apiRoutes;
 

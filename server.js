@@ -1,18 +1,25 @@
+//dependencies
 const express = require("express");
-const path = require("path");
 
-var apiRoutes = require('./app/routing/apiRoutes.js');
-var htmlRoutes = require('./app/routing/htmlRoutes.js');
 
+//======EXPRESS configuration=========
+//create an express server
 const app = express();
+//creating a port so it can be used later for the listener
 const PORT = process.env.PORT || 3000;
 
+//data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// you can use this to server static
+app.use(express.static('public'));
 
-apiRoutes(app); // API route - Must be listed first due to the HTML default catch all "use" route
-htmlRoutes(app); // HTML route 
 
+//maps
+require('./app/routing/apiRoutes.js')(app);
+require('./app/routing/htmlRoutes.js')(app);
+
+//listener
 app.listen(PORT, () => {
   console.log("App listening on PORT " + PORT);
 });

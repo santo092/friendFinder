@@ -1,3 +1,5 @@
+//dummy data stored that will hold 'friends' 
+
 var friendsData = [
     {
       name: "Harry Potter",
@@ -38,5 +40,5 @@ var friendsData = [
   
   
   
-  // Export to API Route
+  // export array 
   module.exports = friendsData;
