@@ -1,6 +1,6 @@
 ##### friendfinder
 
-## This Friendfinder 'social matching' node app creates a profile and takes in the answers from the survey given. It also pulls out existing users who is based matched for you depending on your survey questions. 
+## This Friendfinder 'social matching' node app creates a profile and takes in the answers from the survey given. It also pulls out existing users who is matched for you depending on your survey questions. 
 
 __How Friendfinder works__
 
